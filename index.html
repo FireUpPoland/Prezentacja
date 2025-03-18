@@ -10,16 +10,11 @@
             text-align: left;
             margin: 0;
             padding: 0;
-            background-color: black;
-            color: white;
-            overflow: hidden;
         }
         .container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 1;
         }
         img {
             max-width: 100%;
@@ -40,21 +35,9 @@
         .nav-button:hover {
             background-color: #0056b3;
         }
-        .matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-        }
     </style>
 </head>
 <body>
-
-<div class="matrix"></div>
 
 <script>
     const slides = [
@@ -129,38 +112,6 @@
             renderSlide();
         }
     }
-
-    function createMatrixEffect() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        document.querySelector('.matrix').appendChild(canvas);
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const letters = Array(256).join("1").split("");
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-
-        function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#FF0000";
-            ctx.font = fontSize + "px arial";
-
-            letters.map((y_pos, index) => {
-                const text = String.fromCharCode(3e4 + Math.random() * 33);
-                const x_pos = index * fontSize;
-                ctx.fillText(text, x_pos, y_pos);
-                letters[index] = (y_pos > canvas.height + Math.random() * 1e4) ? 0 : y_pos + fontSize;
-            });
-        }
-
-        setInterval(draw, 33);
-    }
-
-    createMatrixEffect();
-    renderSlide();
 </script>
 
 <div class="container">
@@ -172,6 +123,10 @@
         <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
     </div>
 </div>
+
+<script>
+    renderSlide();
+</script>
 
 </body>
 </html>

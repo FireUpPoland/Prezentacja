@@ -120,32 +120,34 @@
         }
     ];
 
-    let currentSlide = 0;
+  let currentSlide = 0;
 
-    function renderSlide() {
-        document.getElementById("title").innerHTML = slides[currentSlide].title;
-        document.getElementById("content").innerHTML = slides[currentSlide].content;
-        document.getElementById("image").src = slides[currentSlide].image;
-        
-        document.getElementById("prev").style.display = currentSlide === 0 ? "none" : "inline-block";
-        document.getElementById("next").style.display = currentSlide === slides.length - 1 ? "none" : "inline-block";
+function renderSlide() {
+    document.getElementById("title").innerHTML = slides[currentSlide].title;
+    document.getElementById("content").innerHTML = slides[currentSlide].content;
+    document.getElementById("image").src = slides[currentSlide].image;
+
+    // Pokazuje lub ukrywa przyciski nawigacyjne w zależności od slajdu
+    document.getElementById("prev").style.display = (currentSlide === 0) ? "none" : "inline-block";
+    document.getElementById("next").style.display = (currentSlide === slides.length - 1) ? "none" : "inline-block";
+}
+
+function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+        currentSlide++;  // Zwiększenie indeksu slajdu
+        renderSlide();
     }
+}
 
-    function nextSlide() {
-        if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            renderSlide();
-        }
+function prevSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;  // Zmniejszenie indeksu slajdu
+        renderSlide();
     }
+}
 
-    function prevSlide() {
-        if (currentSlide > 0) {
-            currentSlide--;
-            renderSlide();
-        }
-    }
-
-    renderSlide();
+// Inicjalizacja pierwszego slajdu
+document.addEventListener("DOMContentLoaded", renderSlide);
 </script>
 
 </body>

@@ -7,83 +7,148 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            color: white;
+        }
+        .matrix-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: -1;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         .container {
             width: 80%;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: left;
+            font-size: 24px;
+        }
+        p {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
         }
         img {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 20px 0;
         }
         .navigation {
             margin-top: 20px;
+            text-align: left;
         }
         .nav-button {
             display: inline-block;
             margin: 10px;
             padding: 10px 20px;
             text-decoration: none;
-            background-color: #007bff;
+            background-color: #ff0000;
             color: white;
             border-radius: 5px;
+            font-weight: bold;
         }
         .nav-button:hover {
-            background-color: #0056b3;
+            background-color: #b30000;
         }
     </style>
 </head>
 <body>
 
+<canvas id="matrixCanvas"></canvas>
+<script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()-+=";
+    const columns = Math.floor(canvas.width / 20);
+    const drops = Array(columns).fill(0);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#ff0000";
+        ctx.font = "20px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = characters[Math.floor(Math.random() * characters.length)];
+            ctx.fillText(text, i * 20, drops[i] * 20);
+
+            if (drops[i] * 20 > canvas.height && Math.random() > 0.95) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 50);
+</script>
+
 <script>
     const slides = [
         {
             title: "1. Introduction",
-            content: "I am responsible for managing financial resources allocated to support fire protection units. My work involves both designing fund distribution strategies and maintaining IT systems that support this process. The goal of my activities is the efficient and effective allocation of available funds, directly improving the equipment of PSP and OSP units and, consequently, enhancing safety nationwide.",
+            content: "I am responsible for managing financial resources allocated to support fire protection units...",
             image: "obraz1.png"
         },
         {
             title: "2. Sources of Funding I Manage",
-            content: "I oversee the allocation of financial resources from various sources: <br> ✅ Insurance company funds <br> ✅ Budgetary grants <br> ✅ National Fund for Environmental Protection and Water Management <br> ✅ Other governmental and local programs.",
+            content: "I oversee the allocation of financial resources from various sources...",
             image: "obraz2.png"
         },
         {
             title: "3. Designing the Allocation of Financial Resources",
-            content: "I am responsible for creating and implementing financial distribution plans, which include: <br> 📌 Analyzing the needs of OSP and PSP units <br> 📌 Developing criteria for awarding grants <br> 📌 Monitoring budget execution and spending efficiency.",
+            content: "I am responsible for creating and implementing financial distribution plans...",
             image: "obraz3.png"
         },
         {
             title: "4. Maintaining the Fire Insurance Fund System",
-            content: "I manage the maintenance and updates of the Fire Insurance Fund System, which collects and processes data regarding funds from insurance companies. <br> 🔹 Ensuring system functionality <br> 🔹 Implementing necessary updates <br> 🔹 Monitoring processes and improving system efficiency.",
+            content: "I manage the maintenance and updates of the Fire Insurance Fund System...",
             image: "obraz4.png"
         },
         {
             title: "5. Handling Inquiries and Funding Requests",
-            content: "I regularly respond to inquiries regarding financial support for OSP units, including: <br> 📩 Parliamentary inquiries <br> 📩 Requests from government institutions and local authorities <br> 📩 Questions from OSP units and private individuals.",
+            content: "I regularly respond to inquiries regarding financial support for OSP units...",
             image: "obraz5.png"
         },
         {
             title: "6. Developing IT Tools",
-            content: "To streamline my work, I develop IT tools in various programming environments: <br> 💻 VBA - Response generator & invoicing <br> 💻 Webcon - OSP Vehicle Procurement 2025 <br> 💻 Power Apps - Monitoring application in SOFU system.",
+            content: "To streamline my work, I develop IT tools in various programming environments...",
             image: "obraz6.png"
         },
         {
             title: "7. Monitoring the Transfer of Equipment and Vehicles",
-            content: "As part of my duties, I oversee the transfer process of vehicles from PSP to OSP units. 🚒 Tracking the transfer of vehicles <br> 🚒 Developing the Webcon application 'Transferred Transport Equipment for OSP'.",
+            content: "As part of my duties, I oversee the transfer process of vehicles from PSP to OSP units...",
             image: "obraz7.png"
         },
         {
             title: "8. Challenges and Future Development",
-            content: "🔹 Process automation <br> 🔹 Optimization of fund allocation <br> 🔹 Digitization of documentation.",
+            content: "Process automation, optimization of fund allocation, digitization of documentation...",
             image: "obraz8.png"
         },
         {
             title: "9. Summary",
-            content: "✅ Effective financial resource management <br> ✅ Development of modern IT tools <br> ✅ Streamlining administrative processes <br> ✅ Supporting PSP and OSP units.",
+            content: "Effective financial resource management, development of modern IT tools...",
             image: "obraz9.png"
         }
     ];

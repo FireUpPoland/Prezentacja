@@ -20,29 +20,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Matrix jako tło */
+            z-index: -1; /* Tło */
         }
 
         .container {
-            position: relative;
+            position: relative; /* Treść na pierwszym planie */
             width: 80%;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 20px;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.7); /* Czarne tło dla czytelności */
-            border-radius: 10px;
+            text-align: left; /* Tekst wyrównany do lewej */
         }
 
         img {
             max-width: 100%;
             height: auto;
-            display: block;
-            margin-top: 10px;
         }
 
         .navigation {
             margin-top: 20px;
-            text-align: center;
         }
 
         .nav-button {
@@ -53,7 +48,6 @@
             background-color: #007bff;
             color: white;
             border-radius: 5px;
-            cursor: pointer;
         }
 
         .nav-button:hover {
@@ -65,16 +59,6 @@
 
 <!-- Tło Matrixa -->
 <canvas id="matrixCanvas"></canvas>
-
-<div class="container">
-    <h1 id="title"></h1>
-    <p id="content"></p>
-    <img id="image" src="" alt="Slide Image">
-    <div class="navigation">
-        <a id="prev" class="nav-button" href="javascript:void(0)" onclick="prevSlide()">← Previous</a>
-        <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
-    </div>
-</div>
 
 <script>
     // Matrix Effect
@@ -110,12 +94,30 @@
     }
 
     setInterval(drawMatrix, 50);
+</script>
 
-    // Slajdy
+<div class="container">
+    <h1 id="title"></h1>
+    <p id="content"></p>
+    <img id="image" src="" alt="Slide Image">
+    <div class="navigation">
+        <a id="prev" class="nav-button" href="javascript:void(0)" onclick="prevSlide()">← Previous</a>
+        <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
+    </div>
+</div>
+
+<script>
     const slides = [
-        { title: "Slajd 1", content: "Opis pierwszego slajdu.", image: "https://via.placeholder.com/600x300" },
-        { title: "Slajd 2", content: "Opis drugiego slajdu.", image: "https://via.placeholder.com/600x300" },
-        { title: "Slajd 3", content: "Opis trzeciego slajdu.", image: "https://via.placeholder.com/600x300" }
+        {
+            title: "1. Introduction",
+            content: "I am responsible for managing financial resources allocated to support fire protection units.",
+            image: "obraz1.png"
+        },
+        {
+            title: "2. Sources of Funding I Manage",
+            content: "I oversee the allocation of financial resources from various sources.",
+            image: "obraz2.png"
+        }
     ];
 
     let currentSlide = 0;
@@ -124,9 +126,9 @@
         document.getElementById("title").innerHTML = slides[currentSlide].title;
         document.getElementById("content").innerHTML = slides[currentSlide].content;
         document.getElementById("image").src = slides[currentSlide].image;
-
-        document.getElementById("prev").style.display = (currentSlide === 0) ? "none" : "inline-block";
-        document.getElementById("next").style.display = (currentSlide === slides.length - 1) ? "none" : "inline-block";
+        
+        document.getElementById("prev").style.display = currentSlide === 0 ? "none" : "inline-block";
+        document.getElementById("next").style.display = currentSlide === slides.length - 1 ? "none" : "inline-block";
     }
 
     function nextSlide() {
@@ -143,7 +145,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", renderSlide);
+    renderSlide();
 </script>
 
 </body>

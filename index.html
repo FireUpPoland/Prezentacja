@@ -9,114 +9,147 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: black;
+            overflow: hidden;
             color: white;
         }
-
-        /* Tło animacji Matrix */
-        canvas {
+        .matrix-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Tło */
+            background: black;
+            z-index: -1;
+            overflow: hidden;
         }
-
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
         .container {
-            position: relative; /* Treść na pierwszym planie */
             width: 80%;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
-            text-align: left; /* Tekst wyrównany do lewej */
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
         }
-
+        h1 {
+            text-align: left;
+            font-size: 24px;
+        }
+        p {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+        }
         img {
             max-width: 100%;
             height: auto;
+            display: block;
+            margin: 20px 0;
         }
-
         .navigation {
             margin-top: 20px;
+            text-align: left;
         }
-
         .nav-button {
             display: inline-block;
             margin: 10px;
             padding: 10px 20px;
             text-decoration: none;
-            background-color: #007bff;
+            background-color: #ff0000;
             color: white;
             border-radius: 5px;
+            font-weight: bold;
         }
-
         .nav-button:hover {
-            background-color: #0056b3;
+            background-color: #b30000;
         }
     </style>
 </head>
 <body>
 
-<!-- Tło Matrixa -->
 <canvas id="matrixCanvas"></canvas>
-
 <script>
-    // Matrix Effect
     const canvas = document.getElementById("matrixCanvas");
     const ctx = canvas.getContext("2d");
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-
-    const drops = Array(Math.floor(columns)).fill(1);
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()-+=";
+    const columns = Math.floor(canvas.width / 20);
+    const drops = Array(columns).fill(0);
 
     function drawMatrix() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "#ff0000"; // Czerwony kolor znaków
-        ctx.font = fontSize + "px monospace";
+        ctx.fillStyle = "#ff0000";
+        ctx.font = "20px monospace";
 
-        drops.forEach((y, index) => {
-            const text = letters.charAt(Math.floor(Math.random() * letters.length));
-            const x = index * fontSize;
-            ctx.fillText(text, x, y * fontSize);
+        for (let i = 0; i < drops.length; i++) {
+            const text = characters[Math.floor(Math.random() * characters.length)];
+            ctx.fillText(text, i * 20, drops[i] * 20);
 
-            if (y * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[index] = 0;
+            if (drops[i] * 20 > canvas.height && Math.random() > 0.95) {
+                drops[i] = 0;
             }
-            drops[index]++;
-        });
+            drops[i]++;
+        }
     }
 
     setInterval(drawMatrix, 50);
 </script>
 
-<div class="container">
-    <h1 id="title"></h1>
-    <p id="content"></p>
-    <img id="image" src="" alt="Slide Image">
-    <div class="navigation">
-        <a id="prev" class="nav-button" href="javascript:void(0)" onclick="prevSlide()">← Previous</a>
-        <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
-    </div>
-</div>
-
 <script>
     const slides = [
         {
             title: "1. Introduction",
-            content: "I am responsible for managing financial resources allocated to support fire protection units.",
+            content: "I am responsible for managing financial resources allocated to support fire protection units...",
             image: "obraz1.png"
         },
         {
             title: "2. Sources of Funding I Manage",
-            content: "I oversee the allocation of financial resources from various sources.",
+            content: "I oversee the allocation of financial resources from various sources...",
             image: "obraz2.png"
+        },
+        {
+            title: "3. Designing the Allocation of Financial Resources",
+            content: "I am responsible for creating and implementing financial distribution plans...",
+            image: "obraz3.png"
+        },
+        {
+            title: "4. Maintaining the Fire Insurance Fund System",
+            content: "I manage the maintenance and updates of the Fire Insurance Fund System...",
+            image: "obraz4.png"
+        },
+        {
+            title: "5. Handling Inquiries and Funding Requests",
+            content: "I regularly respond to inquiries regarding financial support for OSP units...",
+            image: "obraz5.png"
+        },
+        {
+            title: "6. Developing IT Tools",
+            content: "To streamline my work, I develop IT tools in various programming environments...",
+            image: "obraz6.png"
+        },
+        {
+            title: "7. Monitoring the Transfer of Equipment and Vehicles",
+            content: "As part of my duties, I oversee the transfer process of vehicles from PSP to OSP units...",
+            image: "obraz7.png"
+        },
+        {
+            title: "8. Challenges and Future Development",
+            content: "Process automation, optimization of fund allocation, digitization of documentation...",
+            image: "obraz8.png"
+        },
+        {
+            title: "9. Summary",
+            content: "Effective financial resource management, development of modern IT tools...",
+            image: "obraz9.png"
         }
     ];
 
@@ -144,7 +177,19 @@
             renderSlide();
         }
     }
+</script>
 
+<div class="container">
+    <h1 id="title"></h1>
+    <p id="content"></p>
+    <img id="image" src="" alt="Slide Image">
+    <div class="navigation">
+        <a id="prev" class="nav-button" href="javascript:void(0)" onclick="prevSlide()">← Previous</a>
+        <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
+    </div>
+</div>
+
+<script>
     renderSlide();
 </script>
 

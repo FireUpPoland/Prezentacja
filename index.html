@@ -59,4 +59,53 @@
     <h1 id="title"></h1>
     <p id="content"></p>
     <img id="image" src="" alt="Slide Image">
-   
+    <div class="navigation">
+        <a id="prev" class="nav-button" href="javascript:void(0)" onclick="prevSlide()">← Previous</a>
+        <a id="next" class="nav-button" href="javascript:void(0)" onclick="nextSlide()">Next →</a>
+    </div>
+</div>
+
+<script>
+    // Slajdy
+    const slides = [
+        { title: "Introduction – Programming as a Tool for Work Improvement", content: "Brief introduction to the topic. How does programming help in administration and finance? My journey to process automation.", image: "images/obraz1.png" },
+        { title: "VBA – Response Generator for Letters (OSP)", content: "Description of the tool: Automatic generation of responses to funding requests for 11 OSP. Benefits: Time savings, error elimination, improved correspondence.", image: "images/obraz2.png" },
+        { title: "VBA – Invoicing Program for Ukrainian Refugees", content: "Purpose: Automation of bus ride invoicing for refugees. Features: Data entry, document generation, quick invoice processing.", image: "images/obraz3.png" },
+        { title: "VBA – Scripts for Archiving Requests", content: "Application: Managing funding requests from insurance companies. Benefits: Automatic archiving and document generation.", image: "images/obraz4.png" },
+        { title: "Python – Task Automation and Data Analysis", content: "Examples of use: Merging and splitting PDF files. Backup automation and file management. Creating data analysis tools.", image: "images/obraz5.png" },
+        { title: "SQL and PHP – Insurance Fund Management System (SOFU)", content: "Purpose: Managing the process of requesting funds from insurance companies. Collaboration with an external company in creating the system. Benefits: Automation of financial processes, easy handling of large amounts of data.", image: "images/obraz6.png" },
+        { title: "Microsoft Power Apps – Mobile Apps for OSP", content: "Examples: Monitoring submitted requests by OSP units. Tracking purchasing processes. Integration with the SOFU system.", image: "images/obraz7.png" },
+        { title: "Artificial Intelligence (AI) – Using OLAMA Models", content: "How does AI help at work? Analysis of large data sets. Creating more intelligent information management systems.", image: "images/obraz8.png" },
+        { title: "JavaScript and HTML – Creating Web Applications", content: "Application: Creating web tools for OSP. Benefits: Accessibility on any device, easy handling, better organization of purchases and fleet management.", image: "images/obraz9.png" }
+    ];
+
+    let currentSlide = 0;
+
+    function renderSlide() {
+        document.getElementById("title").innerHTML = slides[currentSlide].title;
+        document.getElementById("content").innerHTML = slides[currentSlide].content;
+        document.getElementById("image").src = slides[currentSlide].image;
+
+        document.getElementById("prev").style.display = (currentSlide === 0) ? "none" : "inline-block";
+        document.getElementById("next").style.display = (currentSlide === slides.length - 1) ? "none" : "inline-block";
+    }
+
+    function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            renderSlide();
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            renderSlide();
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", renderSlide);
+</script>
+
+</body>
+</html>
